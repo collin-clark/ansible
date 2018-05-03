@@ -1,0 +1,26 @@
+---
+
+- hosts: switch-ios
+  gather_facts: no
+  connection: local
+#  serial:
+#    - 2
+#  max_fail_percentage: 10
+  vars:
+    creds:
+      host: "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+
+  tasks:
+    - name: Grab the config-register
+      ios_command:
+        commands: show version | i register
+      register: output
+
+    - name: Send the results to a file 
+      lineinfile:
+        dest: ./register-affected-hosts.txt
+        line: "Host {{ inventory_hostname }} output is {{ output.stdout }}"         
+        insertafter: EOF
+      delegate_to: localhost
