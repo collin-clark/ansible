@@ -1,0 +1,10 @@
+[all:vars]
+ansible_connection=local
+ansible_python_interpreter=/usr/bin/python
+#ansible_ssh_common_args='-o UserKnownHostsFile=/dev/null'
+ansible_ssh_common_args='-o UserKnownHostsFile=~/.ssh/known_hosts'
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+#ansible_ssh_user=USE VAULT
+#ansible_ssh_pass=USE VAULT
+device_type=cisco_ios
+#dev_os=ios
