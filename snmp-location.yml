@@ -1,0 +1,21 @@
+---
+
+- hosts: test
+  gather_facts: no
+  connection: local
+  serial:
+    - 1
+  max_fail_percentage: 1
+  vars:
+    creds:
+      host: "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+
+  tasks:
+  - name: Configure SNMP Location
+    ios_config:
+      lines:
+        - snmp-server location 123 Main St. Madison, WI 53718
+      match: exact
+      replace: line
