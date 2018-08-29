@@ -1,0 +1,27 @@
+---
+
+- hosts: snmp
+  gather_facts: no
+  connection: local
+ # serial:
+ #   - 2
+  #max_fail_percentage: 1
+  vars:
+    creds:
+      host: "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+
+  tasks:
+  - name: Configure SNMP-ACL
+    ios_config:
+      parents: "ip access-list standard SNMP"
+      lines:
+        - remark Solarwinds
+        - permit 10.10.1.5
+        - remark Cisco Prime
+        - permit 10.10.0.3
+        
+before: "no ip access-list standard SNMP"
+      match: exact
+      replace: line
